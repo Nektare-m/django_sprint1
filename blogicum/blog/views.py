@@ -56,22 +56,16 @@ def index(request):
 def post_detail(request, id):
 
     template_name = 'blog/detail.html'
-    post = []
 
     for index, _ in enumerate(posts):
         if _['id'] == id:
-            post = posts[index]
-            break
+            context = {
+                'id': id,
+                'post': posts[index],
+            }
+            return render(request, template_name, context)
 
-    if post == []:
-        return render(request, "404.html")
-
-    context = {
-        'id': id,
-        'post': post,
-    }
-
-    return render(request, template_name, context)
+    return render(request, "404.html")
 
 
 def category_posts(request, category_slug):
